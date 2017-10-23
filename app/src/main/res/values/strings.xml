@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Sudhaar</string>
+    <string name="homepage_name">Submit a case</string>
+    <string name="case_heading">Enter case details here:</string>
+    <string name="category">1. Choose a category</string>
+    <string name="subcategory">2. Choose a sub-category</string>
+    <string name="b">ggjhgjhg</string>
+    <string-array name="categories">
+        <item>Administrative</item>
+        <item>Private Sector</item>
+        <item>Education</item>
+        <item>Media</item>
+        <item>Religious</item>
+    </string-array>
+    <string-array name="Administative">
+        <item>Police</item>
+        <item>Political</item>
+        <item>Judicial</item>
+        <item>Sports</item>
+        <item>Scams</item>
+        <item>Health</item>
+        <item>Gender</item>
+        <item>Govt. Officials</item>
+        <item>Defence and Security</item>
+        <item>Water</item>
+        <item>Information Hiding</item>
+    </string-array>
+    <string-array name="Private_Sector">
+        <item>Private Companies</item>
+        <item>Health</item>
+    </string-array>
+    <string-array name="Religious">
+        <item>Exorcism</item>
+        <item>Change of Religion/Caste</item>
+        <item>Fraud</item>
+        <item>Extortion</item>
+    </string-array>
+</resources>
