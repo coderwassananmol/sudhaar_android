@@ -1,8 +1,12 @@
 package com.example.wassan.sudhaar;
 
 import android.app.Activity;
-import android.arch.persistence.room.Room;
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +33,7 @@ public class CaseActivity extends AppCompatActivity implements AdapterView.OnIte
     private static String subcat;
     private static boolean proof;
     private static boolean anonymous;
+    private static int a[];
     private final static String TAG = "log";
     Context context = this;
     @Override
@@ -60,7 +65,6 @@ public class CaseActivity extends AppCompatActivity implements AdapterView.OnIte
         });
         Button submitButton = (Button) findViewById(R.id.submitButton);
         submitButton.setOnClickListener(this);
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"sudhaar-database").build();
     }
 
     @Override
@@ -147,12 +151,16 @@ public class CaseActivity extends AppCompatActivity implements AdapterView.OnIte
         officer = officerText.getText().toString();
         service = serviceText.getText().toString();
         caseEdit = caseText.getText().toString();
+        SQLdatabase db = new SQLdatabase(this);
+        db.onInsert(place_name,category,subcat,officer,service,caseEdit,proof,anonymous);
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Thank you!")
                 .setMessage("Case submitted successfully!\n Officer: " + place_name)
                 .setCancelable(true);
         builder.create();
         builder.show();
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
     }
 }
 

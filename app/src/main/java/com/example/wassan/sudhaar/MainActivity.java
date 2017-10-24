@@ -1,22 +1,43 @@
 package com.example.wassan.sudhaar;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity implements Button.OnClickListener {
+public class MainActivity extends FragmentActivity {
     private static final int tl = Toast.LENGTH_LONG;
+    private static final int numPages = 3;
+    private ViewPager viewPager;
+    private PagerAdapter pagerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button button_submit = (Button) findViewById(R.id.submit);
-        button_submit.setOnClickListener(this);
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        pagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(pagerAdapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (viewPager.getCurrentItem() == 0) {
+            // If the user is currently looking at the first step, allow the system to handle the
+            // Back button. This calls finish() on this activity and pops the back stack.
+            super.onBackPressed();
+        } else {
+            // Otherwise, select the previous step.
+            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+        }
     }
     /*@Override
     protected void onPause() {
@@ -50,12 +71,20 @@ public class MainActivity extends AppCompatActivity implements Button.OnClickLis
         Toast.makeText(this,"Saved instance",tl).show();
         Log.i("sudhaar","application saved instance");
     }*/
-    public void onClick(View view) {
-        switch(view.getId()) {
-            case R.id.submit:
-                Intent intent = new Intent(this,CaseActivity.class);
-                intent.setAction(Intent.ACTION_SEND);
-                startActivity(intent);
+
+    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+        public ScreenSlidePagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return new Fragment1();
+        }
+
+        @Override
+        public int getCount() {
+            return numPages;
         }
     }
 }
