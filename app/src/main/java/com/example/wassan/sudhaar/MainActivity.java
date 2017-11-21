@@ -79,7 +79,16 @@ public class MainActivity extends FragmentActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return new Fragment1();
+            Fragment fragment = new Fragment();
+            switch (position) {
+                case 0:
+                    fragment = new Fragment1();
+                    break;
+                case 1:
+                    fragment = new Fragment2();
+                    break;
+            }
+            return fragment;
         }
 
         @Override

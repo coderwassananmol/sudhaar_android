@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "376328505155",
+    "firebase_url": "https://sudhaar-180219.firebaseio.com",
+    "project_id": "sudhaar-180219",
+    "storage_bucket": "sudhaar-180219.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:376328505155:android:f03a5e61e782ff62",
+        "android_client_info": {
+          "package_name": "com.example.wassan.sudhaar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "376328505155-kf819nmk5l2vhbn6ma9doqj5s5d8b0d8.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "376328505155-rvjnhrhurahfib053n3eqdqdiljas6f5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wassan.sudhaar",
+            "certificate_hash": "b7cfb054724dfea6abe1cffb43c248a4cd9907d2"
+          }
+        },
+        {
+          "client_id": "376328505155-1kv7ipkgvb6nvilnhh2ubpbp9qm9u2lj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsxSC69lAAU_13z-hiHE75zqDlUTu9j9c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "376328505155-kf819nmk5l2vhbn6ma9doqj5s5d8b0d8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

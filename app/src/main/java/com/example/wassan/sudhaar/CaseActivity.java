@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -26,6 +27,16 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import static java.security.spec.MGF1ParameterSpec.SHA1;
+import static java.security.spec.MGF1ParameterSpec.SHA256;
 
 public class CaseActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, Button.OnClickListener, RadioGroup.OnCheckedChangeListener {
     private static String place_name;
@@ -33,7 +44,6 @@ public class CaseActivity extends AppCompatActivity implements AdapterView.OnIte
     private static String subcat;
     private static boolean proof;
     private static boolean anonymous;
-    private static int a[];
     private final static String TAG = "log";
     Context context = this;
     @Override
@@ -151,16 +161,26 @@ public class CaseActivity extends AppCompatActivity implements AdapterView.OnIte
         officer = officerText.getText().toString();
         service = serviceText.getText().toString();
         caseEdit = caseText.getText().toString();
-        SQLdatabase db = new SQLdatabase(this);
-        db.onInsert(place_name,category,subcat,officer,service,caseEdit,proof,anonymous);
+        DatabaseReference mDatabase;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        Case report = new Case(place_name,category,subcat,officer,service,caseEdit,proof,anonymous);
+        String key = mDatabase.push().getKey();
+        Log.i(TAG,key);
+        mDatabase.child("cases").push().setValue(report);
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Thank you!")
-                .setMessage("Case submitted successfully!\n Officer: " + place_name)
-                .setCancelable(true);
+                .setMessage("Case successfully submitted! Click \"OKAY\" to proceed.")
+                .setNeutralButton("OKAY", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                })
+                .setCancelable(false);
         builder.create();
         builder.show();
-        Intent intent = new Intent(this,MainActivity.class);
-        startActivity(intent);
     }
 }
 

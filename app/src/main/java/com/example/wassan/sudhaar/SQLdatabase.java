@@ -7,25 +7,35 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.nfc.Tag;
 import android.util.Log;
+import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by wassan on 24/10/17.
  */
 
-public class SQLdatabase extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 1;
+public class SQLdatabase {
+    /*private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "Sudhaar";
     private static final String DATABASE_TABLE = "cases";
-    private static final String ID = "id";
-    private static final String PLACE = "place";
-    private static final String CATEGORY = "category";
-    private static final String SUBCAT = "subcat";
-    private static final String OFFICER = "officer";
-    private static final String SERVICE = "service";
-    private static final String CASE = "[Case]";
-    private static final String PROOF = "proof";
-    private static final String ANONYMOUS = "anonymous";
     private static final String TAG = "Query feed: ";
+    private static String getPlace;
+    private static String getCategory;
+    private static String getSubcat;
+    private static String getOfficer;
+    private static String getService;
+    private static String getCase;
+    private static String getProof;
+    private static String getAnonymous;
+    private DatabaseReference mDatabase;
+
 
     public SQLdatabase(Context context) {
         super(context,DATABASE_NAME,null,DATABASE_VERSION);
@@ -59,9 +69,41 @@ public class SQLdatabase extends SQLiteOpenHelper {
         contentValues.put(PROOF,proof);
         contentValues.put(ANONYMOUS, anonymous);
         db.insert(DATABASE_TABLE,null,contentValues);
-        Cursor cursor = db.rawQuery("SELECT category FROM cases",null);
-        cursor.moveToFirst();
-        Log.i(TAG,cursor.getString(0));
         db.close();
     }
+
+    //Read from database
+    public void onRead() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM cases",null);
+        int count = -1;
+        if (cursor.moveToFirst()) {
+            do {
+                getCategory = cursor.getString(cursor.getColumnIndex(CATEGORY));
+                getPlace = cursor.getString(cursor.getColumnIndex(PLACE));
+                getSubcat = cursor.getString(cursor.getColumnIndex(SUBCAT));
+                getOfficer = cursor.getString(cursor.getColumnIndex(OFFICER));
+                getService = cursor.getString(cursor.getColumnIndex(SERVICE));
+                //getCase = cursor.getString(cursor.getColumnIndex(CASE));
+                getProof = cursor.getString(cursor.getColumnIndex(PROOF));
+                getAnonymous = cursor.getString(cursor.getColumnIndex(ANONYMOUS));
+                Log.i("Category: " , getCategory);
+                Log.i("Place: " , getPlace);
+                Log.i("Subcat: " , getSubcat);
+                Log.i("Officer: " , getOfficer);
+                Log.i("Service: " , getService);
+                //Log.i("Case: " , getCase);
+                Log.i("Proof: " , getProof);
+                Log.i("Anonymous: " , getAnonymous);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+    }
+
+    //Firebase
+    public void firebase() {
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+    }*/
 }
